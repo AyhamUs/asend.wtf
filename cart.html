@@ -9,6 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        :root {
+            --bg: #f6f7f9;
+            --surface: #ffffff;
+            --text: #101114;
+            --muted: #70757f;
+            --line: #e5e7eb;
+            --line-strong: #ccd1d8;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -18,44 +27,82 @@
         body {
             font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             min-height: 100vh;
-            background: #fff;
+            background: radial-gradient(circle at top, #ffffff 0%, var(--bg) 62%);
             padding: 2rem 1rem;
+            color: var(--text);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            filter: blur(70px);
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.45;
+        }
+
+        body::before {
+            background: #dbe6f3;
+            top: -110px;
+            left: -120px;
+        }
+
+        body::after {
+            background: #eef2d9;
+            right: -120px;
+            bottom: -130px;
         }
 
         .header {
-            text-align: center;
             margin-bottom: 4rem;
         }
 
+        .header-row {
+            width: min(980px, 100%);
+            margin: 0 auto 0.9rem;
+            min-height: 92px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            backdrop-filter: blur(6px);
+        }
+
         .logo {
-            font-size: 3rem;
-            font-weight: 400;
-            color: #000;
-            letter-spacing: 0.4em;
-            text-indent: 0.4em;
-            margin-bottom: 1rem;
+            margin-bottom: 0;
+            overflow: hidden;
+            display: inline-block;
         }
 
-        .logo a {
-            color: #000;
-            text-decoration: none;
-            transition: opacity 0.2s;
-        }
-
-        .logo a:hover {
-            opacity: 0.6;
+        .logo img {
+            max-width: min(420px, 72vw);
+            height: auto;
+            display: block;
+            margin-bottom: -10px;
         }
 
         .back-link {
             font-size: 0.75rem;
-            color: #999;
+            color: var(--muted);
             text-decoration: none;
             letter-spacing: 0.2em;
             transition: color 0.2s;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
         }
 
         .back-link:hover {
-            color: #000;
+            color: var(--text);
         }
 
         .back-link i {
@@ -79,9 +126,12 @@
         .cart-empty {
             text-align: center;
             padding: 4rem 2rem;
-            color: #999;
+            color: var(--muted);
             letter-spacing: 0.2em;
             font-size: 0.875rem;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--surface);
         }
 
         .cart-empty i {
@@ -90,13 +140,21 @@
             display: block;
         }
 
+        .cart-empty .continue-shopping {
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
         .cart-items {
-            border: 1px solid #000;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--surface);
         }
 
         .cart-item {
             padding: 1.5rem;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid var(--line);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -120,7 +178,7 @@
 
         .item-info {
             font-size: 0.75rem;
-            color: #666;
+            color: var(--muted);
             letter-spacing: 0.1em;
         }
 
@@ -140,15 +198,17 @@
         .qty-btn {
             width: 28px;
             height: 28px;
-            border: 1px solid #000;
-            background: transparent;
+            border: 1px solid var(--line-strong);
+            background: #fff;
             cursor: pointer;
             font-size: 0.875rem;
             transition: all 0.2s;
+            border-radius: 999px;
         }
 
         .qty-btn:hover {
-            background: #000;
+            background: var(--text);
+            border-color: var(--text);
             color: #fff;
         }
 
@@ -161,20 +221,22 @@
         .remove-btn {
             background: transparent;
             border: none;
-            color: #999;
+            color: var(--muted);
             cursor: pointer;
             font-size: 1.125rem;
             transition: color 0.2s;
         }
 
         .remove-btn:hover {
-            color: #000;
+            color: var(--text);
         }
 
         .cart-summary {
             margin-top: 2rem;
             padding: 1.5rem;
-            border: 1px solid #000;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--surface);
         }
 
         .summary-row {
@@ -189,7 +251,7 @@
             font-size: 1.125rem;
             font-weight: 500;
             padding-top: 1rem;
-            border-top: 1px solid #e0e0e0;
+            border-top: 1px solid var(--line);
             margin-bottom: 0;
         }
 
@@ -201,16 +263,16 @@
             font-size: 0.8125rem;
             font-weight: 400;
             letter-spacing: 0.25em;
-            border: 1px solid #000;
-            background: #000;
+            border: 1px solid var(--text);
+            background: var(--text);
             color: #fff;
             cursor: pointer;
             transition: all 0.2s;
+            border-radius: 999px;
         }
 
         .checkout-btn:hover {
-            background: #fff;
-            color: #000;
+            opacity: 0.92;
         }
 
         .checkout-btn:active {
@@ -222,14 +284,14 @@
             text-align: center;
             margin-top: 2rem;
             font-size: 0.75rem;
-            color: #999;
+            color: var(--muted);
             text-decoration: none;
             letter-spacing: 0.2em;
             transition: color 0.2s;
         }
 
         .continue-shopping:hover {
-            color: #000;
+            color: var(--text);
         }
 
         footer {
@@ -237,14 +299,14 @@
             padding: 2.5rem;
             margin-top: 4rem;
             font-size: 0.6875rem;
-            color: #999;
+            color: var(--muted);
             letter-spacing: 0.25em;
             font-weight: 400;
         }
 
         @media (max-width: 768px) {
-            .logo {
-                font-size: 2rem;
+            .header-row {
+                min-height: 84px;
             }
 
             .container {
@@ -268,7 +330,11 @@
 </head>
 <body>
     <div class="header">
-        <h1 class="logo"><a href="index.html">ASEND</a></h1>
+        <div class="header-row">
+            <h1 class="logo">
+                <img src="assets/logo.png" alt="Asend Logo">
+            </h1>
+        </div>
         <a href="shop.html" class="back-link"><i class="fa-solid fa-arrow-left"></i>BACK TO SHOP</a>
     </div>
 
@@ -283,32 +349,12 @@
     </footer>
 
     <script>
-        // Cookie helper functions
-        function getCookie(name) {
-            const nameEQ = name + "=";
-            const ca = document.cookie.split(';');
-            for(let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) === 0) {
-                    return JSON.parse(c.substring(nameEQ.length, c.length));
-                }
-            }
-            return null;
-        }
-
-        function setCookie(name, value, days) {
-            const expires = new Date();
-            expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
-            document.cookie = `${name}=${JSON.stringify(value)};expires=${expires.toUTCString()};path=/`;
-        }
-
         function getCart() {
-            return getCookie('asendCart') || [];
+            return JSON.parse(localStorage.getItem('asendCart') || '[]');
         }
 
         function saveCart(cart) {
-            setCookie('asendCart', cart, 30);
+            localStorage.setItem('asendCart', JSON.stringify(cart));
             renderCart();
         }
 
@@ -342,7 +388,7 @@
                     <div class="cart-empty">
                         <i class="fa-solid fa-shopping-cart"></i>
                         <p>YOUR CART IS EMPTY</p>
-                        <a href="shop.html" class="continue-shopping" style="margin-top: 1rem; display: inline-block;">CONTINUE SHOPPING</a>
+                        <a href="shop.html" class="continue-shopping">CONTINUE SHOPPING</a>
                     </div>
                 `;
                 return;
