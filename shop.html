@@ -194,6 +194,117 @@
             object-fit: cover;
         }
 
+        .view-product {
+            width: 100%;
+            margin-bottom: 1.2rem;
+            padding: 0.72rem 1rem;
+            border: 1px solid var(--line-strong);
+            border-radius: 999px;
+            background: #fff;
+            color: var(--text);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.2em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .view-product:hover {
+            border-color: var(--text);
+            transform: translateY(-1px);
+        }
+
+        .product-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .product-modal.open {
+            display: flex;
+        }
+
+        .modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(8, 10, 14, 0.55);
+            backdrop-filter: blur(3px);
+        }
+
+        .modal-panel {
+            position: relative;
+            width: min(100%, 760px);
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            box-shadow: 0 24px 50px rgba(16, 17, 20, 0.25);
+            padding: 1.2rem;
+            z-index: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 0.8rem;
+            top: 0.8rem;
+            width: 34px;
+            height: 34px;
+            border: 1px solid var(--line-strong);
+            border-radius: 999px;
+            background: #fff;
+            color: var(--text);
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .modal-title {
+            font-size: 0.82rem;
+            letter-spacing: 0.24em;
+            color: var(--muted);
+            margin: 0 0 1rem;
+            text-align: center;
+        }
+
+        .modal-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 0.55rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-view-btn {
+            border: 1px solid var(--line-strong);
+            background: #fff;
+            color: var(--text);
+            font-size: 0.64rem;
+            letter-spacing: 0.2em;
+            padding: 0.5rem 0.9rem;
+            border-radius: 999px;
+            cursor: pointer;
+        }
+
+        .modal-view-btn.active {
+            background: var(--text);
+            color: #fff;
+            border-color: var(--text);
+        }
+
+        .modal-image-wrap {
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f3f4f6;
+            aspect-ratio: 1;
+        }
+
+        .modal-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .product-name {
             font-size: 1.125rem;
             font-weight: 400;
@@ -302,6 +413,10 @@
             .product-card {
                 padding: 1.5rem;
             }
+
+            .modal-panel {
+                padding: 1rem;
+            }
         }
     </style>
 </head>
@@ -324,9 +439,10 @@
         <div class="product-grid">
             <div class="product-card">
                 <div class="product-image">
-                    <img src="assets/asend-black-front.jpeg" alt="ASEND BLACK SHIRT">
+                    <img src="assets/shirt1front.jpeg" alt="ASEND SHIRT NO. 1 FRONT">
                 </div>
-                <div class="product-name">ASEND BLACK SHIRT</div>
+                <button class="view-product" data-name="ASEND SHIRT NO. 1" data-front="assets/shirt1front.jpeg" data-back="assets/shirt1back.jpeg">VIEW FRONT / BACK</button>
+                <div class="product-name">ASEND SHIRT NO. 1</div>
                 <div class="product-price">$25</div>
                 <div class="size-selector">
                     <label class="size-label">SELECT SIZE</label>
@@ -337,7 +453,41 @@
                         <button class="size-option" data-size="XL">XL</button>
                     </div>
                 </div>
-                <button class="add-to-cart" data-product="ASEND BLACK SHIRT" data-price="25">ADD TO CART</button>
+                <button class="add-to-cart" data-product="ASEND SHIRT NO. 1" data-price="25">ADD TO CART</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="assets/shirt2front.jpeg" alt="ASEND SHIRT NO. 2 FRONT">
+                </div>
+                <button class="view-product" data-name="ASEND SHIRT NO. 2" data-front="assets/shirt2front.jpeg" data-back="assets/shirt2back.jpeg">VIEW FRONT / BACK</button>
+                <div class="product-name">ASEND SHIRT NO. 2</div>
+                <div class="product-price">$25</div>
+                <div class="size-selector">
+                    <label class="size-label">SELECT SIZE</label>
+                    <div class="size-options">
+                        <button class="size-option" data-size="S">S</button>
+                        <button class="size-option" data-size="M">M</button>
+                        <button class="size-option" data-size="L">L</button>
+                        <button class="size-option" data-size="XL">XL</button>
+                    </div>
+                </div>
+                <button class="add-to-cart" data-product="ASEND SHIRT NO. 2" data-price="25">ADD TO CART</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-modal" id="productModal" aria-hidden="true">
+        <div class="modal-backdrop" data-close-modal></div>
+        <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal-close" type="button" data-close-modal aria-label="Close">×</button>
+            <p class="modal-title" id="modalTitle"></p>
+            <div class="modal-toggle">
+                <button class="modal-view-btn active" type="button" data-view="front">FRONT</button>
+                <button class="modal-view-btn" type="button" data-view="back">BACK</button>
+            </div>
+            <div class="modal-image-wrap">
+                <img id="modalImage" src="" alt="">
             </div>
         </div>
     </div>
@@ -361,6 +511,60 @@
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             document.getElementById('cartCount').textContent = totalItems;
         }
+
+        const productModal = document.getElementById('productModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalImage = document.getElementById('modalImage');
+        const modalViewButtons = document.querySelectorAll('.modal-view-btn');
+        let currentFrontImage = '';
+        let currentBackImage = '';
+
+        function setModalView(view) {
+            const isFront = view === 'front';
+            modalImage.src = isFront ? currentFrontImage : currentBackImage;
+            modalImage.alt = `${modalTitle.textContent} ${isFront ? 'FRONT' : 'BACK'}`;
+            modalViewButtons.forEach((btn) => {
+                btn.classList.toggle('active', btn.dataset.view === view);
+            });
+        }
+
+        function openProductModal(name, front, back) {
+            modalTitle.textContent = name;
+            currentFrontImage = front;
+            currentBackImage = back;
+            setModalView('front');
+            productModal.classList.add('open');
+            productModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProductModal() {
+            productModal.classList.remove('open');
+            productModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('.view-product').forEach((button) => {
+            button.addEventListener('click', function() {
+                openProductModal(this.dataset.name, this.dataset.front, this.dataset.back);
+            });
+        });
+
+        modalViewButtons.forEach((button) => {
+            button.addEventListener('click', function() {
+                setModalView(this.dataset.view);
+            });
+        });
+
+        document.querySelectorAll('[data-close-modal]').forEach((button) => {
+            button.addEventListener('click', closeProductModal);
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && productModal.classList.contains('open')) {
+                closeProductModal();
+            }
+        });
 
         // Initialize cart count on page load
         updateCartCount();
