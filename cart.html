@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --bg: #f6f7f9;
-            --surface: #ffffff;
-            --text: #101114;
-            --muted: #70757f;
-            --line: #e5e7eb;
-            --line-strong: #ccd1d8;
+            --bg: #030303;
+            --surface: #0b0b0b;
+            --text: #f3f3f3;
+            --muted: #979797;
+            --line: #1f1f1f;
+            --line-strong: #2f2f2f;
         }
 
         * {
@@ -27,11 +27,15 @@
         body {
             font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             min-height: 100vh;
-            background: radial-gradient(circle at top, #ffffff 0%, var(--bg) 62%);
+            background:
+                radial-gradient(1100px circle at 14% -12%, #171717 0%, rgba(23, 23, 23, 0) 44%),
+                radial-gradient(900px circle at 110% 120%, #101010 0%, rgba(16, 16, 16, 0) 45%),
+                var(--bg);
             padding: 2rem 1rem;
             color: var(--text);
             position: relative;
             overflow-x: hidden;
+            color-scheme: dark;
         }
 
         body::before,
@@ -48,13 +52,13 @@
         }
 
         body::before {
-            background: #dbe6f3;
+            background: #1a1a1a;
             top: -110px;
             left: -120px;
         }
 
         body::after {
-            background: #eef2d9;
+            background: #111111;
             right: -120px;
             bottom: -130px;
         }
@@ -71,7 +75,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.72);
+            background: linear-gradient(180deg, rgba(16, 16, 16, 0.9), rgba(8, 8, 8, 0.88));
             border: 1px solid var(--line);
             border-radius: 18px;
             backdrop-filter: blur(6px);
@@ -132,6 +136,7 @@
             border: 1px solid var(--line);
             border-radius: 16px;
             background: var(--surface);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.45);
         }
 
         .cart-empty i {
@@ -150,6 +155,7 @@
             border-radius: 16px;
             overflow: hidden;
             background: var(--surface);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
         }
 
         .cart-item {
@@ -199,7 +205,7 @@
             width: 28px;
             height: 28px;
             border: 1px solid var(--line-strong);
-            background: #fff;
+            background: #121212;
             cursor: pointer;
             font-size: 0.875rem;
             transition: all 0.2s;
@@ -209,7 +215,7 @@
         .qty-btn:hover {
             background: var(--text);
             border-color: var(--text);
-            color: #fff;
+            color: #090909;
         }
 
         .qty-display {
@@ -237,6 +243,7 @@
             border: 1px solid var(--line);
             border-radius: 16px;
             background: var(--surface);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
         }
 
         .summary-row {
@@ -265,7 +272,7 @@
             letter-spacing: 0.25em;
             border: 1px solid var(--text);
             background: var(--text);
-            color: #fff;
+            color: #090909;
             cursor: pointer;
             transition: all 0.2s;
             border-radius: 999px;
@@ -345,7 +352,7 @@
     </div>
 
     <footer>
-        © 2026
+        ASEND © 2026
     </footer>
 
     <script>

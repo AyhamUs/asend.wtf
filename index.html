@@ -10,15 +10,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --bg: #f6f7f9;
-            --surface: #ffffff;
-            --text: #101114;
-            --muted: #70757f;
-            --line: #e5e7eb;
-            --line-strong: #ccd1d8;
-            --button: #f0f2f5;
-            --button-hover: #101114;
-            --button-hover-text: #ffffff;
+            --bg: #030303;
+            --surface: #0b0b0b;
+            --text: #f3f3f3;
+            --muted: #979797;
+            --line: #1f1f1f;
+            --line-strong: #2f2f2f;
+            --button: #121212;
+            --button-hover: #f3f3f3;
+            --button-hover-text: #090909;
         }
 
         * {
@@ -34,11 +34,15 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: radial-gradient(circle at top, #ffffff 0%, var(--bg) 62%);
+            background:
+                radial-gradient(1100px circle at 14% -12%, #171717 0%, rgba(23, 23, 23, 0) 44%),
+                radial-gradient(900px circle at 110% 120%, #101010 0%, rgba(16, 16, 16, 0) 45%),
+                var(--bg);
             padding: 2rem 1rem;
             position: relative;
             color: var(--text);
             overflow-x: hidden;
+            color-scheme: dark;
         }
 
         body::before,
@@ -55,13 +59,13 @@
         }
 
         body::before {
-            background: #dbe6f3;
+            background: #1a1a1a;
             top: -120px;
             left: -120px;
         }
 
         body::after {
-            background: #eef2d9;
+            background: #111111;
             right: -130px;
             bottom: -130px;
         }
@@ -86,7 +90,7 @@
             top: -8px;
             right: -8px;
             background: var(--text);
-            color: #fff;
+            color: #0d131d;
             font-size: 0.625rem;
             padding: 2px 6px;
             border-radius: 10px;
@@ -102,12 +106,13 @@
             justify-content: center;
             align-items: center;
             width: min(100%, 760px);
-            background: rgba(255, 255, 255, 0.74);
+            background: linear-gradient(180deg, rgba(16, 16, 16, 0.9), rgba(8, 8, 8, 0.88));
             border: 1px solid var(--line);
             border-radius: 20px;
             padding: clamp(1.5rem, 3vw, 3rem);
-            box-shadow: 0 14px 40px rgba(16, 17, 20, 0.06);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
             backdrop-filter: blur(8px);
+            animation: riseIn 0.7s ease-out;
         }
 
         .eyebrow {
@@ -164,6 +169,7 @@
             transition: all 0.2s ease;
             width: 100%;
             border-radius: 999px;
+            animation: riseIn 0.55s ease both;
         }
 
         .btn i {
@@ -181,12 +187,34 @@
 
         .buttons .btn:first-child {
             background: var(--text);
-            color: #fff;
+            color: #090909;
             border-color: var(--text);
         }
 
         .buttons .btn:first-child:hover {
             opacity: 0.92;
+        }
+
+        .buttons .btn:nth-child(1) { animation-delay: 0.12s; }
+        .buttons .btn:nth-child(2) { animation-delay: 0.2s; }
+        .buttons .btn:nth-child(3) { animation-delay: 0.28s; }
+
+        @keyframes riseIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .container,
+            .btn {
+                animation: none;
+            }
         }
 
         @media (max-width: 768px) {
@@ -249,7 +277,7 @@
     </div>
 
     <footer>
-        © 2026
+        ASEND © 2026
     </footer>
 
     <script>
